@@ -29,6 +29,9 @@ You ingest the blog content, build a vector index over it, and then query the as
 - **RAG pipeline with LangChain**  
   Orchestrates document ingestion, chunking, embedding, retrieval, and answer generation through a modular LangChain pipeline.
 
+- **Bring your own sources**  
+  Paste research blog URLs or upload PDF papers directly into the Streamlit UI. The app ingests both formats with LangChain loaders, HuggingFace embeddings, and a Chroma vector store—the same stack that powered the original onboarding agent.
+
 - **Cloud-based embeddings for long chunks (~1K+ tokens)**  
   Uses hosted embedding models via API to generate dense vector representations for relatively large text chunks, capturing rich context from research-style paragraphs and sections.
 
@@ -40,6 +43,28 @@ You ingest the blog content, build a vector index over it, and then query the as
 
 - **Extensible design**  
   You can easily swap out embedding models, vector stores, or LLM providers without changing the high-level flow.
+
+---
+
+### Using the App
+
+1. **Install dependencies**
+  ```bash
+  pip install -r requirements.txt
+  ```
+2. **Run the Streamlit interface**
+  ```bash
+  streamlit run app.py
+  ```
+3. **Populate the knowledge base**
+  - Paste one URL per line for the research blogs you want indexed.
+  - Upload any supporting research paper PDFs.
+  - Click **Build Knowledge Base**. The app chunks, embeds, and stores everything in Chroma using HuggingFace sentence transformers, mirroring the tooling from the onboarding agent.
+4. **Ask questions**
+  - Once indexing finishes, the chat input unlocks.
+  - Your prompts are answered by a Groq-hosted Llama 3.1 model with retrieval-augmented context from the sources you supplied.
+
+Use **Reset Conversation** to clear the dialogue while keeping the currently indexed sources in memory.
 
 ---
 
